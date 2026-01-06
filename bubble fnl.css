@@ -1,211 +1,345 @@
-/* Thème "bulle" - placez ce code dans un fichier .css */
+/* Thème "bulle" */
 /* Utilise des bulles flottantes, verre dépoli et accents doux */
 
 :root{
-    --bg-top: #b7d4e4;
-    --bg-bottom: #7caacf;
-    --bubble-light: rgba(138, 177, 189, 0.95);
-    --bubble-mid: rgba(59, 146, 223, 0.9);
-    --bubble-gloss: rgba(117, 161, 182, 0.945);
-    --accent: #88a1b3;
-    --muted: #6b7a86;
-    --glass: rgba(255,255,255,0.55);
-    --glass-border: rgba(255,255,255,0.6);
-    --shadow: 0 8px 24px rgba(40,60,80,0.08);
-    --transition: 300ms cubic-bezier(.2,.9,.3,1);
+    --bg-1: #e0f7ff;
+    --bg-2: #c7e9f5;
+    --accent: #00d4ff;
+    --accent-2: #5ae6ff;
+    --text: #1e5f99;
+    --muted: #5a7a9d;
+    --muted-2: #2c3e50;
+    --glass: rgba(255,255,255,0.85);
+    --shadow: 0 12px 30px rgba(30,95,153,0.15);
+    --shadow-hover: 0 16px 40px rgba(30,95,153,0.25);
+    --radius: 16px;
+    --link: #007bff;
+    --transition: all 0.4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    --transition-1: all 0.2s ease;
+    --highlight: #ff6b9d;
 }
 
 /* page */
 html,body{
     height:100%;
     margin:0;
-    font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
-    background: radial-gradient(1200px 600px at 10% 10%, rgba(105,192,255,0.12), transparent),
-                            radial-gradient(900px 500px at 90% 80%, rgba(105,192,255,0.08), transparent),
-                            linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
-    color:#0b2230;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: radial-gradient(800px 360px at 10% 10%, var(--bg-2), transparent 20%),
+                radial-gradient(600px 300px at 90% 90%, var(--bg-1), transparent 15%),
+                linear-gradient(180deg,#f0f9ff 0%, #e0f2ff 50%, #d1ecff 100%);
+    color:var(--text);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
-    padding:2rem;
-    box-sizing:border-box;
+    overflow-x:hidden;
+    padding-bottom:48px;
 }
 
-/* conteneur de bulles décoratif */
-.bubbles{
-    /* fixed pour couvrir l'écran et animer librement les bulles */
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    overflow:hidden;
-    z-index:0;
-}
-
-/* élément bulle */
-.bubble{
-    position:absolute;
-    display:block;
-    border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, var(--bubble-light), var(--bubble-mid) 60%, rgba(140,190,240,0.6));
-    box-shadow: 
-        inset -10px -6px 20px rgba(255,255,255,0.55),
-        0 12px 30px rgba(50,90,140,0.06);
-    mix-blend-mode: screen;
-    will-change: transform, opacity;
-    opacity:0.95;
-    transition: transform var(--transition), opacity var(--transition);
-    z-index:0;
-}
-
-/* tailles utiles */
-.bubble--xs{ width:36px; height:36px; }
-.bubble--sm{ width:64px; height:64px; }
-.bubble--md{ width:110px; height:110px; }
-.bubble--lg{ width:180px; height:180px; }
-.bubble--xl{ width:280px; height:280px; }
-
-/* animation flottante aléatoire - définir via inline styles top/left et animation-delay */
-@keyframes floatBubble {
-    50%   { transform: translateY(0) translateX(0) scale(1); opacity:1.95; }
-    90%  { transform: translateY(-18px) translateX(6px) scale(1.02); opacity:1; }
-    100% { transform: translateY(0) translateX(0) scale(1); opacity:1.2; }
-}
-.bubble--animated{
-    animation: floatBubble 10s ease-in-out infinite;
-    will-change: transform, opacity;
-}
-
-/* carte style "bulle" / verre dépoli */
-.bubble-card{
+/* conteneur */
+.container{
+    max-width:1100px;
+    margin:36px auto;
+    padding:26px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.75));
+    border-radius: calc(var(--radius) + 6px);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(6px) saturate(120%);
     position:relative;
     z-index:1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
-    backdrop-filter: blur(8px) saturate(120%);
-    -webkit-backdrop-filter: blur(8px) saturate(120%);
-    border-radius:12px;
-    border:1px solid var(--glass-border);
-    box-shadow: var(--shadow);
-    padding:0.9rem;
-    max-width:360px;
-    display:flex;
-    gap:.75rem;
-    align-items:flex-start;
-    color:#042935;
+    transition: var(--transition);
 }
 
-/* ajout de petites bulles décoratives sur la carte */
-.bubble-card::before,
-.bubble-card::after{
-    content:"";
-    position:absolute;
-    pointer-events:none;
-    border-radius:50%;
-    background: radial-gradient(circle at 30% 30%, var(--bubble-gloss), rgba(255,255,255,0.05));
-    opacity:0.9;
-}
-.bubble-card::before{
-    width:40px; height:40px; top:-12px; right:-12px; transform:translateZ(0);
-    box-shadow: 0 8px 22px rgba(60,120,180,0.06);
-}
-.bubble-card::after{
-    width:22px; height:22px; bottom:-8px; left:-8px;
-    box-shadow: 0 6px 14px rgba(24, 78, 133, 0.05);
+.container:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
-/* limiter la taille de l'avatar et adapter le flux interne */
-.bubble-card .avatar{
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    object-fit:cover;
-    flex-shrink:0;
-}
-.bubble-card .info{ /* permet au texte de s'adapter et rester compact */
-    min-width:0;
-}
-.bubble-card .name{ font-size:1rem; margin:0 0 .25rem 0; }
-.bubble-card .role{ font-size:.85rem; margin:0 0 .5rem 0; color:var(--muted); }
-
-/* boutons "bulle" */
-.btn-bubble{
-    display:inline-flex;
-    align-items:center;
-    gap:.6rem;
-    padding:.6rem 1rem;
-    border-radius:999px;
-    background: linear-gradient(180deg, var(--accent), #4eaaf8);
-    color:white;
-    border:none;
-    cursor:pointer;
-    box-shadow: 0 6px 18px rgba(9, 93, 177, 0.18);
-    transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
-}
-.btn-bubble:active{ transform: translateY(1px) scale(.997); }
-.btn-bubble:focus{ outline:3px solid rgba(105,192,255,0.25); outline-offset:3px; }
-
-/* variant outline */
-.btn-bubble--ghost{
-    background:rgb(0, 136, 255);
-    color:var(--accent);
-    border:1px solid rgba(105,192,255,0.18);
-    box-shadow:none;
+/* header */
+.brand{display:flex;gap:18px;align-items:center}
+.logo-bubble{
+    width:84px;height:84px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;
+    background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
+    box-shadow: 0 8px 20px rgba(127,211,255,0.18), inset 0 -6px 18px rgba(255,255,255,0.06);
+    transition: var(--transition);
 }
 
-/* titres et textes "flottants" */
-.h-bubble{
-    font-weight:700;
-    letter-spacing:-0.02em;
-    margin:0 0 .5rem 0;
-}
-.p-muted{ color:var(--muted); margin:0 0 1rem 0; }
-
-/* utilitaires pour placer bulles (exemples) */
-.bubble-pos-1{ left:6%; top:12%; }
-.bubble-pos-2{ left:20%; top:70%; }
-.bubble-pos-3{ left:48%; top:6%; }
-.bubble-pos-4{ left:78%; top:40%; }
-.bubble-pos-5{ left:90%; top:14%; }
-
-/* réduire animations si demandé par l'utilisateur */
-@media (prefers-reduced-motion: reduce){
-    .bubble--animated{ animation:none; transform:none !important; }
-    .btn-bubble{ transition:none; }
+.logo-bubble:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(127,211,255,0.25);
 }
 
-/* responsive: réduire taille grosses bulles sur petits écrans */
+.title{margin-top: auto; color:var(--text); font-size:22px; margin:0}
+.lead{color:var(--muted);margin-top:6px}
+.team-meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.badge{background:rgba(11,35,64,0.04);padding:6px 10px;border-radius:10px;font-size:13px;color:var(--muted); transition: var(--transition);}
+
+.badge:hover {
+    background: rgba(11,35,64,0.08);
+    transform: translateY(-1px);
+}
+
+/* Grid des membres */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:14px}
+.bubble-card{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:12px;background:var(--glass);box-shadow:0 8px 22px rgba(7,32,51,0.06); transition: var(--transition);}
+
+.bubble-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.8);
+}
+
+.avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;flex:0 0 110px;box-shadow:0 8px 18px rgba(7,32,51,0.06); transition: var(--transition);}
+
+.avatar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(7,32,51,0.1);
+}
+
+.info{flex:1}
+.name{margin:0;font-weight:700;font-size:17px; color:var(--muted-2)}
+.role{margin:6px 0;color:var(--muted-2);font-size:14px}
+.bio{margin-top:8px;color:var(--muted)}
+.link{padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,#ffffff,#f0fbff);text-decoration:none;color:var(--muted);font-weight:600;border:1px solid rgba(7,32,51,0.04); transition: var(--transition);}
+.image-large{width:320px;border-radius:12px;box-shadow:0 8px 18px rgba(7,32,51,0.06);margin-top:12px;}
+.links{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;color:var(--text);}
+.footer{margin-top:26px;color:var(--muted)}
+.link:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(7,32,51,0.1);background:linear-gradient(180deg,#f0fbff,#f4fdff);border-color: rgba(7,32,51,0.1);}
+
+/* Section titles */
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(45deg, var(--accent), var(--highlight));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.subsection-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 24px;
+    margin-bottom: 12px;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+}
+
+/* Formulaire de contact */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: var(--text);
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(7,32,51,0.1);
+  border-radius: 8px;
+  background: var(--glass);
+  color: var(--text);
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(127,211,255,0.1);
+  outline: none;
+}
+
+button.link {
+  padding: 14px 28px;
+  border-radius: 20px;
+  background: linear-gradient(45deg, var(--accent), var(--highlight));
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0,212,255,0.3);
+}
+
+button.link:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,212,255,0.4);
+  background: linear-gradient(45deg, var(--highlight), var(--accent));
+}
+
+/* Images responsives */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: var(--transition);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(30,95,153,0.1);
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+main img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(30,95,153,0.2);
+  border-color: var(--accent);
+}
+
+/* Photo gallery for multiple images */
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.photo-gallery img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(30,95,153,0.15);
+  transition: var(--transition-1);
+}
+
+.photo-gallery img:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 10px 25px rgba(30,95,153,0.25);
+}
+
+/* Footer */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.footer-content a {
+  transition: var(--transition);
+}
+
+.footer-content a:hover {
+  color: var(--link);
+}
+
+/* Bulle decorative */
+.bubble{position:absolute;border-radius:50%;filter:blur(6px);opacity:.9;z-index:0;pointer-events:none;transform:translate3d(0,0,0)}
+.bubble.small{width:56px;height:56px;background:radial-gradient(circle at 30% 30%, #87bfd3,#73c9eb)}
+.bubble.med{width:120px;height:120px;background:radial-gradient(circle at 30% 30%, #9adaec,#78c8e6)}
+.bubble.large{width:220px;height:220px;background:radial-gradient(circle at 30% 30%, rgba(0,212,255,0.2), rgba(90,230,255,0.15))}
+
+
+@keyframes floatY{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
+@keyframes floatX{0%{transform:translateX(0)}50%{transform:translateX(12px)}100%{transform:translateX(0)}}
+.float-slow{animation:floatY 9s ease-in-out infinite}
+.float-med{animation:floatY 6.5s ease-in-out infinite}
+.float-side{animation:floatX 10s ease-in-out infinite}
+
+/* Lightbox styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    transition: var(--transition);
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width:1200px){
+    .container{max-width:95%;padding:24px}
+    .photo-gallery{grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));}
+}
+
+@media (max-width:900px){
+    .grid{grid-template-columns:repeat(1,1fr)}
+    .logo-bubble{width:64px;height:64px;font-size:18px}
+    .avatar{width:88px;height:88px;flex:0 0 88px}
+    .container{margin:18px auto;padding:16px}
+    .bubble-card{flex-direction:column;text-align:center}
+    .avatar{margin:0 auto}
+    .section-title{font-size:24px}
+    .subsection-title{font-size:18px}
+    .photo-gallery{grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:12px;}
+}
+
 @media (max-width:600px){
-    .bubble--xl{ width:160px; height:160px; }
-    .bubble--lg{ width:110px; height:110px; }
-    .bubble-card{ padding:1rem; border-radius:12px; }
+    .container{max-width:95%;padding:12px;margin:12px auto}
+    .logo-bubble{width:56px;height:56px;font-size:16px}
+    .title{font-size:18px}
+    .name{font-size:15px}
+    .role{font-size:13px}
+    .bio{font-size:14px}
+    .close{font-size:30px;top:10px;right:15px}
+    .lightbox img{max-width:95%;max-height:95%}
+    .footer-content{flex-direction:column;text-align:center}
+    .section-title{font-size:20px;margin-bottom:16px}
+    .subsection-title{font-size:16px;margin-top:20px}
+    .photo-gallery{grid-template-columns: 1fr; gap:8px;}
+    .photo-gallery img{height:150px}
+    .form-group input, .form-group textarea{font-size:14px}
+    button.link{padding:12px 20px;font-size:14px}
 }
 
-/* disposition en grille pour les cartes */
-.grid{
-    display:grid;
-    /* colonnes de largeur fixe pour garder les cartes de la même taille */
-    grid-template-columns: repeat(auto-fit, 240px);
-    gap:100px;
-    align-items:start;
-    justify-content:center; /* centre la grille dans l'espace horizontal */
-    justify-items:start; /* aligne le contenu interne des cellules sur la gauche */
-}
-
-/* adapter l'apparence sur très petits écrans */
-@media (max-width:420px){
-    .grid{ grid-template-columns: 1fr; gap:20px; }
-    .bubble-card{ padding:.7rem; border-radius:10px; width:100%; max-width:100%; }
-    .bubble-card .avatar{ width:56px; height:56px; }
-    .bubble-card .name{ font-size:.95rem; }
-    .container .image-large{ width:280px; }
-}
-
-/* option: diminuer encore la taille par défaut si souhaité */
-@media (min-width:1200px){
-    .grid{ gap:100px; }
-
-}
-
-/* forcer une largeur fixe des cartes sur les écrans standards */
-.bubble-card{
-    width:240px;
-    max-width:100%;
+@media (max-width:480px){
+    .container{padding:8px}
+    .brand{flex-direction:column;text-align:center;gap:12px}
+    .logo-bubble{margin:0 auto}
+    .title{font-size:16px}
+    .lead{font-size:14px}
+    .team-meta{flex-direction:column;gap:6px}
+    .badge{font-size:12px;padding:4px 8px}
+    .section-title{font-size:18px}
+    .subsection-title{font-size:14px}
+    .bio{font-size:13px}
+    .photo-gallery img{height:120px}
+    .form-group{margin-bottom:12px}
+    .form-group input, .form-group textarea{padding:8px;font-size:13px}
+    button.link{padding:10px 16px;font-size:13px}
+    .footer-content{gap:12px}
 }
