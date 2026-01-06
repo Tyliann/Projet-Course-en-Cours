@@ -1,0 +1,211 @@
+/* Thème "bulle" - placez ce code dans un fichier .css */
+/* Utilise des bulles flottantes, verre dépoli et accents doux */
+
+:root{
+    --bg-top: #b7d4e4;
+    --bg-bottom: #7caacf;
+    --bubble-light: rgba(138, 177, 189, 0.95);
+    --bubble-mid: rgba(59, 146, 223, 0.9);
+    --bubble-gloss: rgba(117, 161, 182, 0.945);
+    --accent: #88a1b3;
+    --muted: #6b7a86;
+    --glass: rgba(255,255,255,0.55);
+    --glass-border: rgba(255,255,255,0.6);
+    --shadow: 0 8px 24px rgba(40,60,80,0.08);
+    --transition: 300ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* page */
+html,body{
+    height:100%;
+    margin:0;
+    font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(105,192,255,0.12), transparent),
+                            radial-gradient(900px 500px at 90% 80%, rgba(105,192,255,0.08), transparent),
+                            linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+    color:#0b2230;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:2rem;
+    box-sizing:border-box;
+}
+
+/* conteneur de bulles décoratif */
+.bubbles{
+    /* fixed pour couvrir l'écran et animer librement les bulles */
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:0;
+}
+
+/* élément bulle */
+.bubble{
+    position:absolute;
+    display:block;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, var(--bubble-light), var(--bubble-mid) 60%, rgba(140,190,240,0.6));
+    box-shadow: 
+        inset -10px -6px 20px rgba(255,255,255,0.55),
+        0 12px 30px rgba(50,90,140,0.06);
+    mix-blend-mode: screen;
+    will-change: transform, opacity;
+    opacity:0.95;
+    transition: transform var(--transition), opacity var(--transition);
+    z-index:0;
+}
+
+/* tailles utiles */
+.bubble--xs{ width:36px; height:36px; }
+.bubble--sm{ width:64px; height:64px; }
+.bubble--md{ width:110px; height:110px; }
+.bubble--lg{ width:180px; height:180px; }
+.bubble--xl{ width:280px; height:280px; }
+
+/* animation flottante aléatoire - définir via inline styles top/left et animation-delay */
+@keyframes floatBubble {
+    50%   { transform: translateY(0) translateX(0) scale(1); opacity:1.95; }
+    90%  { transform: translateY(-18px) translateX(6px) scale(1.02); opacity:1; }
+    100% { transform: translateY(0) translateX(0) scale(1); opacity:1.2; }
+}
+.bubble--animated{
+    animation: floatBubble 10s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+/* carte style "bulle" / verre dépoli */
+.bubble-card{
+    position:relative;
+    z-index:1;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border-radius:12px;
+    border:1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    padding:0.9rem;
+    max-width:360px;
+    display:flex;
+    gap:.75rem;
+    align-items:flex-start;
+    color:#042935;
+}
+
+/* ajout de petites bulles décoratives sur la carte */
+.bubble-card::before,
+.bubble-card::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, var(--bubble-gloss), rgba(255,255,255,0.05));
+    opacity:0.9;
+}
+.bubble-card::before{
+    width:40px; height:40px; top:-12px; right:-12px; transform:translateZ(0);
+    box-shadow: 0 8px 22px rgba(60,120,180,0.06);
+}
+.bubble-card::after{
+    width:22px; height:22px; bottom:-8px; left:-8px;
+    box-shadow: 0 6px 14px rgba(24, 78, 133, 0.05);
+}
+
+/* limiter la taille de l'avatar et adapter le flux interne */
+.bubble-card .avatar{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    object-fit:cover;
+    flex-shrink:0;
+}
+.bubble-card .info{ /* permet au texte de s'adapter et rester compact */
+    min-width:0;
+}
+.bubble-card .name{ font-size:1rem; margin:0 0 .25rem 0; }
+.bubble-card .role{ font-size:.85rem; margin:0 0 .5rem 0; color:var(--muted); }
+
+/* boutons "bulle" */
+.btn-bubble{
+    display:inline-flex;
+    align-items:center;
+    gap:.6rem;
+    padding:.6rem 1rem;
+    border-radius:999px;
+    background: linear-gradient(180deg, var(--accent), #4eaaf8);
+    color:white;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 6px 18px rgba(9, 93, 177, 0.18);
+    transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+}
+.btn-bubble:active{ transform: translateY(1px) scale(.997); }
+.btn-bubble:focus{ outline:3px solid rgba(105,192,255,0.25); outline-offset:3px; }
+
+/* variant outline */
+.btn-bubble--ghost{
+    background:rgb(0, 136, 255);
+    color:var(--accent);
+    border:1px solid rgba(105,192,255,0.18);
+    box-shadow:none;
+}
+
+/* titres et textes "flottants" */
+.h-bubble{
+    font-weight:700;
+    letter-spacing:-0.02em;
+    margin:0 0 .5rem 0;
+}
+.p-muted{ color:var(--muted); margin:0 0 1rem 0; }
+
+/* utilitaires pour placer bulles (exemples) */
+.bubble-pos-1{ left:6%; top:12%; }
+.bubble-pos-2{ left:20%; top:70%; }
+.bubble-pos-3{ left:48%; top:6%; }
+.bubble-pos-4{ left:78%; top:40%; }
+.bubble-pos-5{ left:90%; top:14%; }
+
+/* réduire animations si demandé par l'utilisateur */
+@media (prefers-reduced-motion: reduce){
+    .bubble--animated{ animation:none; transform:none !important; }
+    .btn-bubble{ transition:none; }
+}
+
+/* responsive: réduire taille grosses bulles sur petits écrans */
+@media (max-width:600px){
+    .bubble--xl{ width:160px; height:160px; }
+    .bubble--lg{ width:110px; height:110px; }
+    .bubble-card{ padding:1rem; border-radius:12px; }
+}
+
+/* disposition en grille pour les cartes */
+.grid{
+    display:grid;
+    /* colonnes de largeur fixe pour garder les cartes de la même taille */
+    grid-template-columns: repeat(auto-fit, 240px);
+    gap:100px;
+    align-items:start;
+    justify-content:center; /* centre la grille dans l'espace horizontal */
+    justify-items:start; /* aligne le contenu interne des cellules sur la gauche */
+}
+
+/* adapter l'apparence sur très petits écrans */
+@media (max-width:420px){
+    .grid{ grid-template-columns: 1fr; gap:20px; }
+    .bubble-card{ padding:.7rem; border-radius:10px; width:100%; max-width:100%; }
+    .bubble-card .avatar{ width:56px; height:56px; }
+    .bubble-card .name{ font-size:.95rem; }
+    .container .image-large{ width:280px; }
+}
+
+/* option: diminuer encore la taille par défaut si souhaité */
+@media (min-width:1200px){
+    .grid{ gap:100px; }
+
+}
+
+/* forcer une largeur fixe des cartes sur les écrans standards */
+.bubble-card{
+    width:240px;
+    max-width:100%;
+}
