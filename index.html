@@ -106,12 +106,12 @@
        <p class="bio">Notre stand dans lequel repose un baton à bulle sera notre élement principal. Les murs de notre stand serons en papier peint/ peint/ projeté de sorte a faire apparaître des bulles de savon.</p>
        
        <h3 class="subsection-title">Quelques photos</h3>
-       <img src="Stand représentation 3D.JPG" alt="notre représentation 3D du stand" style="border-radius: 5%;">
+       <img class="standalone-photo" src="Stand représentation 3D.JPG" alt="notre représentation 3D du stand">
        </article>
       <article class="container">
        <h2 class="section-title">Notre voiture</h2>     
         <p class="lead">Notre voiture est pensé pour avoir la forme d'un tube a bulle</p>
-        <img src="tube a bulle.png" alt="représentation du style de la voiture" style="border-radius: 5%;">
+        <img class="standalone-photo" src="tube a bulle.png" alt="représentation du style de la voiture">
 
         <h3 class="subsection-title">Quelques photos</h3>
         <p class="bio">Image à venir</p>
@@ -119,11 +119,11 @@
         <h3 class="subsection-title">L'aspect technique de la voiture</h3>
         <p class="bio">Créé par <strong>Lorenzo</strong></p>
         <p class="bio">Les roues</p>
-        <img src="Roue-Moteur 2.JPG" style="border-radius: 5%;">
+        <img class="standalone-photo" src="Roue-Moteur 2.JPG" alt="roue moteur">
 
         <p class="bio">Créé par <strong>Alexis</strong></p>
         <p class="bio">La carrosserie</p>
-        <img src="carosserie.png" alt="la carrosserie de notre voiture" style="border-radius: 5%;">
+        <img class="standalone-photo" src="carosserie.png" alt="la carrosserie de notre voiture">
 
         <h3 class="subsection-title">Usinage de notre carrosserie</h3>
         <div class="photo-gallery">
@@ -148,26 +148,26 @@
 
 
   <!-- Formulaire de contact -->
-  <section class="contact">
-    <div class="container">
-      <h2 class="name">Contactez-nous</h2>
-      <form action="envoie mail.php" method="post" class="contact-form">
-        <div class="form-group">
-          <label for="name">Nom :</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Adresse Email :</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message :</label>
-          <textarea id="message" name="message" required></textarea>
-        </div>
+<section class="contact">
+  <div class="container">
+    <h2 class="section-title">Contactez-nous</h2>
+    <p class="contact-intro">Si vous avez des questions ou souhaitez en savoir plus sur notre équipe et notre projet, n'hésitez pas à nous contacter via le formulaire ci-dessous :</p>
+    <form action="https://formspree.io/f/xykprlay" method="POST" class="contact-form">
+      <div class="form-group">
+        <label for="email">Votre email :</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message :</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <div class="form-actions">
         <button type="submit" class="link">Envoyer</button>
-      </form>
-    </div>
-  </section>
+      </div>
+    </form>
+  </div>
+</section>
+
 
 
 
@@ -177,11 +177,71 @@
   <div class="container">
     <div class="footer-content">
       <p class="section-title">liens vers d'autre site Course en Cours :</p>
-      <br>
-        <a class="links" href="https://course-en-cours.com/" target="_blank" rel="noopener noreferrer">Site officiel Course en Cours</a><br>
-        <a class="links" href="https://teckelmobile.netlify.app/" target="_blank" rel="noopener noreferrer">Teckel Mobile</a><br>
-        <a class="links" href="" target="_blank" rel="noopener noreferrer">...</a><br>
+      <div class="footer-links">
+        <a class="footer-item" href="https://course-en-cours.com/" target="_blank" rel="noopener noreferrer">
+          <span>Site officiel Course en Cours</span>
+        </a>
+        <a class="footer-item" href="https://teckelmobile.netlify.app/" target="_blank" rel="noopener noreferrer">
+          <img src="teckel.jpg" alt="Teckel Mobile">
+          <span>Teckel Mobile</span>
+        </a>
+        <a class="footer-item" href="https://poiscaill3.github.io/Les-Chasseurs-de-bannanes/" target="_blank" rel="noopener noreferrer">
+          <img src="les chasseurs de banane.png" alt="Les Chasseurs de Bananes">
+          <span>Les Chasseurs de Bananes</span>
+        </a>
+        <a class="footer-item" href="https://kellanlebars-tech.github.io/La-Vingtieme/" target="_blank" rel="noopener noreferrer">
+          <img src="20.png" alt="La Vingtième">
+          <span>La Vingtième</span>
+        </a>
+        <a class="footer-item" href="https://chechemobile85-tech.github.io/Cheche-Course-en-cours/" target="_blank" rel="noopener noreferrer">
+          <img src="cheche.png" alt="Cheche Mobile">
+          <span>Cheche Mobile</span>
+        </a>
+      </div>
 
+      <p class="section-title" style="margin-top:18px;">Merci à nos sponsors pour leur soutien !</p>
+      <div class="sponsors">
+        <a class="footer-item" href="https://pfa-auto.fr/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="PFA automobile.png" alt="Logo Sponsor 1">
+          <span>PFA Auto</span>
+        </a>
+        <a class="footer-item" href="https://ellesbougent.com/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Ellesbougent.png" alt="Logo Sponsor 2">
+          <span>Elles Bougent</span>
+        </a>
+        <a class="footer-item" href="https://www.ratpgroup.com/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Groupe RATP.png" alt="Logo Sponsor 3">
+          <span>RATP Group</span>
+        </a>
+        <a class="footer-item" href="https://www.3ds.com/fr/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Dassault système.jpg" alt="Logo Sponsor 4">
+          <span>Dassault Systèmes</span>
+        </a>
+        <a class="footer-item" href="https://www.renaultgroup.com/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Renault groupe.png" alt="Logo Sponsor 5">
+          <span>Groupe Renault</span>
+        </a>
+        <a class="footer-item" href="https://www.education.gouv.fr/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Education nationale.jpg" alt="Logo Sponsor 6">
+          <span>Ministère de l'Éducation Nationale</span>
+        </a>
+        <a class="footer-item" href="https://course-en-cours.com/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="CEC.png" alt="Logo Sponsor 7">
+          <span>Course en Cours</span>
+        </a>
+        <a class="footer-item" href="https://www.arrive-dominique-peinture.com/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Arrivé décorateur.png" alt="Logo Sponsor 8">
+          <span>Arrive Dominique Peinture</span>
+        </a>
+        <a class="footer-item" href="http://www.bonnet-menuiseries.fr/" target="_blank" rel="noopener noreferrer">
+          <img class="sponsor-logo" src="Bonnet.jpg" alt="Logo Sponsor 9">
+          <span>bonnet menuiseries</span>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="footer-bottom">
       <p class="bio"> © <a class="link" href="https://github.com/Tyliann" target="_blank">Tyliann PREVOT</a>
         <strong> - On a pas bullé</strong></p>
     </div>
