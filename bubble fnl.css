@@ -129,55 +129,79 @@ html,body{
 }
 
 /* Formulaire de contact */
+/* Le conteneur contact suit la même largeur que les autres .container */
+.contact .container{max-width:1100px;margin:0 auto;padding:0 12px}
 .contact-form {
-  max-width: 600px;
+  width:100%;
+  max-width: 900px; /* largeur du formulaire à l'intérieur du container */
   margin: 0 auto;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,255,255,0.9));
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(30,95,153,0.08);
+  border: 1px solid rgba(7,32,51,0.04);
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr; /* 1 colonne par défaut (mobile/tablette) */
 }
-.form-group {
-  margin-bottom: 16px;
+
+/* Desktop: deux colonnes, textarea et actions prennent toute la largeur */
+@media (min-width:900px){
+  .contact-form{ grid-template-columns: 1fr 1fr; }
+  .contact-form textarea{ grid-column: 1 / -1; }
+  .form-actions{ grid-column: 1 / -1; }
 }
-.form-group label {
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 600;
-  color: var(--text);
-}
-.form-group input,
-.form-group textarea {
+
+.contact-intro { text-align:center; color:var(--muted); margin-bottom:6px; font-size:15px; }
+
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 700; color: var(--muted-2); font-size:15px }
+.form-group input, .form-group textarea {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(7,32,51,0.1);
-  border-radius: 8px;
-  background: var(--glass);
+  padding: 12px 14px;
+  border: 1px solid rgba(7,32,51,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.7);
   color: var(--text);
   font-family: inherit;
   box-sizing: border-box;
   transition: var(--transition);
+  font-size:15px;
+  box-shadow: none;
 }
+.form-group textarea { min-height:160px; resize:vertical; padding-top:12px }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.form-group input:focus, .form-group textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(127,211,255,0.1);
+  box-shadow: 0 8px 30px rgba(0,212,255,0.08);
   outline: none;
 }
 
+.form-actions { display:flex; justify-content:flex-end; }
+.contact .form-actions .link { min-width:140px }
+
 button.link {
-  padding: 14px 28px;
+  padding: 12px 26px;
   border-radius: 20px;
   background: linear-gradient(45deg, var(--accent), var(--highlight));
   color: white;
-  font-weight: 600;
+  font-weight: 700;
   border: none;
   cursor: pointer;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(0,212,255,0.3);
+  box-shadow: 0 6px 14px rgba(0,212,255,0.28);
 }
 
 button.link:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0,212,255,0.4);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 28px rgba(0,212,255,0.36);
   background: linear-gradient(45deg, var(--highlight), var(--accent));
+}
+
+@media (max-width:600px){
+  .contact-form{padding:18px}
+  .form-actions{justify-content:center}
+  .contact .form-actions .link{width:100%}
 }
 
 /* Images responsives */
@@ -228,12 +252,87 @@ main img:hover {
   gap: 16px;
 }
 
+.footer-links {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.footer-item {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px 14px;
+  border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  box-shadow: 0 6px 18px rgba(7,32,51,0.06);
+  transition: var(--transition);
+  text-decoration:none;
+  color:var(--text);
+  border:1px solid rgba(7,32,51,0.04);
+  flex: 0 1 220px;
+  min-width:180px;
+}
+
+.footer-item img, .sponsor-logo {
+  width:56px;
+  height:56px;
+  object-fit:cover;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.5);
+}
+
+.footer-item span { font-weight:600; }
+
+.footer-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  background: linear-gradient(180deg,#fff,#f4fdff);
+  color: var(--muted-2);
+}
+
 .footer-content a {
   transition: var(--transition);
 }
 
 .footer-content a:hover {
   color: var(--link);
+}
+
+/* Sponsors list */
+.sponsors {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+}
+
+.sponsor-logo{ width:56px; height:56px; object-fit:cover; border-radius:8px }
+
+/* Single images inside articles */
+.standalone-photo {
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(7,32,51,0.06);
+  margin: 12px auto;
+  display: block;
+}
+
+/* Responsive tweaks */
+@media (max-width:900px){
+  .footer-item{ flex: 1 1 48%; min-width:40%; }
+  .footer-links, .sponsors{ justify-content:center }
+  .container{ padding-left:18px; padding-right:18px }
+}
+
+@media (max-width:600px){
+  .footer-item{ flex: 1 1 100%; min-width:100%; }
+  .standalone-photo{ max-width: 100%; }
+  .footer-links{ gap:10px }
+  .sponsors{ gap:10px }
 }
 
 /* Bulle decorative */
