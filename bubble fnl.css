@@ -56,7 +56,7 @@ html,body{
 /* header */
 .brand{display:flex;gap:18px;align-items:center}
 .logo-bubble{
-    width:84px;height:84px;border-radius:50%;
+    width:84px;height:84px;border-radius: 50%;
     display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px;
     background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2));
     box-shadow: 0 8px 20px rgba(127,211,255,0.18), inset 0 -6px 18px rgba(255,255,255,0.06);
@@ -235,15 +235,15 @@ main img:hover {
 
 /* Photo gallery for multiple images */
 .photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
   gap: 16px;
+  flex-wrap: wrap;
   margin: 20px 0;
 }
 
 .photo-gallery img {
-  width: 100%;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   object-fit: cover;
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(30,95,153,0.15);
